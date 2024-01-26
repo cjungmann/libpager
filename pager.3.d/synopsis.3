@@ -12,29 +12,31 @@
 .cdef_arg int row_index
 .cdef_arg int indicated
 .cdef_arg int length
-.cdef_arg "void\ *" data_source last
+.cdef_arg "void\ *" data_source
+.cdef_arg "void\ *" data_extra
 .cdef_end
 \"
 .PP
 .B typedef struct
 .br
-.cdef_start "display_parameters" ""  {} ;
+.cdef_start "" "display_parameters"  {} ;
 .cdef_arg int index_row_top
 .cdef_arg int index_row_focus
 .cdef_arg "void\ *" data_source
 .cdef_arg int row_count
 .cdef_arg pwb_print_line printer
-.cdef_arg \\*[vellipsis] ""  last
+.cdef_arg "void\ *" data_extra
+.cdef_arg \\*[vellipsis] ""
 .cdef_end_stacked DPARMS
 .PP
 .cdef_start "typedef enum" ""  {} ,
 .cdef_arg ARV_CONTINUE =\ 0
 .cdef_arg ARV_REPLOT_DATA ""
-.cdef_arg ARV_EXIT "" last
+.cdef_arg ARV_EXIT ""
 .cdef_end_stacked ARV
 .PP
 .cdef_start "typedef\ ARV" (*PACTION)
-.cdef_arg DPARMS* parms last
+.cdef_arg DPARMS* parms
 .cdef_end
 
 .SS Setup Functions
@@ -43,7 +45,7 @@
 .cdef_arg "DPARMS\ *" dparms
 .cdef_arg "void\ *" data_source
 .cdef_arg int row_count
-.cdef_arg pwb_print_line printer last
+.cdef_arg pwb_print_line printer
 .cdef_end
 .PP
 .cdef_start void pager_set_margins
@@ -51,52 +53,52 @@
 .cdef_arg int top
 .cdef_arg int right
 .cdef_arg int bottom
-.cdef_arg int left last
+.cdef_arg int left
 .cdef_end
 .PP
 .cdef_start void pager_init
-.cdef_arg void "" last
+.cdef_arg void ""
 .cdef_end
 '\"
 .PP
 .cdef_start void pager_cleanup
-.cdef_arg void "" last
+.cdef_arg void ""
 .cdef_end
 
 .SS Pager Manipulation Functions
 
 .cdef_start void pager_plot
-.cdef_arg "DPARMS\ *" parms last
+.cdef_arg "DPARMS\ *" parms
 .cdef_end
 '\"
 .cdef_start ARV pager_quit ()
-.cdef_arg "DPARMS\ *" parms last
+.cdef_arg "DPARMS\ *" parms
 .cdef_end
 '\"
 .cdef_start ARV pager_activate ()
-.cdef_arg "DPARMS\ *" parms last
+.cdef_arg "DPARMS\ *" parms
 .cdef_end
 '\"
 .cdef_start ARV pager_focus_up_one ()
-.cdef_arg "DPARMS\ *" parms last
+.cdef_arg "DPARMS\ *" parms
 .cdef_end
 '\"
 .cdef_start ARV pager_focus_down_one ()
-.cdef_arg "DPARMS\ *" parms last
+.cdef_arg "DPARMS\ *" parms
 .cdef_end
 '\"
 .cdef_start ARV pager_focus_up_page ()
-.cdef_arg "DPARMS\ *" parms last
+.cdef_arg "DPARMS\ *" parms
 .cdef_end
 '\"
 .cdef_start ARV pager_focus_down_page ()
-.cdef_arg "DPARMS\ *" parms last
+.cdef_arg "DPARMS\ *" parms
 .cdef_end
 '\"
 .cdef_start ARV pager_focus_end ()
-.cdef_arg "DPARMS\ *" parms last
+.cdef_arg "DPARMS\ *" parms
 .cdef_end
 '\"
 .cdef_start ARV pager_focus_home ()
-.cdef_arg "DPARMS\ *" parms last
+.cdef_arg "DPARMS\ *" parms
 .cdef_end
