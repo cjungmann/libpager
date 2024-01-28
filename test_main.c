@@ -130,7 +130,7 @@ PACTION get_key_action(KMAP *keys, const char *kstr)
 ARV process_keystroke(DPARMS *parms)
 {
    char buff[24];
-   char *kstroke = get_keystroke(buff, sizeof(buff));
+   const char *kstroke = get_keystroke(buff, sizeof(buff));
    PACTION action = get_key_action(keys, kstroke);
    if (action)
       return (*action)(parms);
@@ -146,9 +146,10 @@ ARV process_keystroke(DPARMS *parms)
  * @param "indicated"   flag, highlight if *true*, normal if *false*
  * @param "length"      number of characters to print (include spaces to fill line)
  * @param "data_source" to be recase as appropriate data source from which to get data
+ * @param "data_extra"  optional, application-specific data
  * @return Number of characters printed, kind of meaningless.
  */
-int lldata_print(int row_index, int indicated, int length, void *data_source)
+int lldata_print(int row_index, int indicated, int length, void *data_source, void *data_extra)
 {
    LLDATA *lldata = (LLDATA*)data_source;
    const char *str = get_line_LLDATA(lldata, row_index);
@@ -169,7 +170,7 @@ int lldata_print(int row_index, int indicated, int length, void *data_source)
 void prepare_DPARMS(DPARMS *parms, LLDATA *index)
 {
    memset(parms, 0, sizeof(DPARMS));
-   pager_init_dparms(parms, index, index->count, lldata_print);
+   pager_init_dparms(parms, index, index->count, lldata_print, NULL);
    pager_set_margins(parms, 4, 4, 4, 4);
 }
 
@@ -209,8 +210,6 @@ int main(int argc, const char **argv)
 {
    int rval = 0;
    const char *filename = (argc>1 ? argv[1] : "-");
-
-   get_keystroke(NULL, 0);
 
    pager_init();
 

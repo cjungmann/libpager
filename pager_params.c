@@ -17,12 +17,14 @@
 EXPORT void pager_init_dparms(DPARMS *parms,
                               void *data_source,
                               int row_count,
-                              pwb_print_line printer)
+                              pwb_print_line printer,
+                              void *data_extra)
 {
    memset(parms, 0, sizeof(DPARMS));
    parms->data_source = data_source;
    parms->row_count = row_count;
    parms->printer = printer;
+   parms->data_extra = data_extra;
 
    parms->index_row_top = 0;
    parms->index_row_focus = 0;

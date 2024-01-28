@@ -49,7 +49,11 @@ void print_indexed_row(const DPARMS *parms, int row_index, bool has_focus)
 {
    int line = get_line_index_from_row_index(parms, row_index);
    ti_set_cursor_position(line, parms->chars_left);
-   (*parms->printer)(row_index, has_focus, parms->chars_count, parms->data_source);
+   (*parms->printer)(row_index,
+                     has_focus,
+                     parms->chars_count,
+                     parms->data_source,
+                     parms->data_extra);
 }
 
 /** @} */

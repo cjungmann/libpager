@@ -38,7 +38,7 @@ char get_keyboard_char(void)
    return c;
 }
 
-int simple_line_print(int row_index, int indicated, int length, void *data)
+int simple_line_print(int row_index, int indicated, int length, void *data_source, void *data_extra)
 {
    if (row_index < 0 || row_index >= 100)
       return -1;
@@ -46,7 +46,7 @@ int simple_line_print(int row_index, int indicated, int length, void *data)
    if (indicated)
       write(STDOUT_FILENO, "\x1b[7m", 4);
 
-   const char *val = ((const char **)data)[row_index];
+   const char *val = ((const char **)data_source)[row_index];
    int len = dprintf(STDOUT_FILENO,"%-*s", length, val);
 
    if (indicated)
@@ -68,7 +68,7 @@ int main(int argc, const char **argv)
 
       DPARMS dparms;
       memset(&dparms, 0, sizeof(dparms));
-      pager_init_dparms(&dparms, numbers, 100, simple_line_print);
+      pager_init_dparms(&dparms, numbers, 100, simple_line_print, NULL);
       pager_set_margins(&dparms, 4,4,4,4);
 
       ARV arv = ARV_REPLOT_DATA;
