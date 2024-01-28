@@ -18,7 +18,11 @@ typedef ARV (*PACTION)(DPARMS*);
 /**
  * @brief The pager will call this function to print each line
  */
-typedef int (*pwb_print_line)(int row_index, int indicated, int length, void *data_source);
+typedef int (*pwb_print_line)(int row_index,
+                              int indicated,
+                              int length,
+                              void *data_source,
+                              void *data_extra);
 
 /**
  * @brief Parameters needed to run the pager.
@@ -47,6 +51,8 @@ struct display_params {
    void *data_source;       ///< passed to print function for printing lines
    int row_count;           ///< number of rows in the source
    pwb_print_line printer;  ///< function pointer to be called for each output line
+   void *data_extra;        ///< Available slot to pass application-defined data
+                            ///  to each call of @p printer
 
    // Default values of 0, use function set_screen_margins() to change
    int margin_top;          ///< lines at top left alone
@@ -70,7 +76,8 @@ struct display_params {
 void pager_init_dparms(DPARMS *parms,
                        void *data_source,
                        int row_count,
-                       pwb_print_line printer);
+                       pwb_print_line printer,
+                       void *data_extra);
 
 void pager_set_margins(DPARMS *parms, int top, int right, int bottom, int left);
 

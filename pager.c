@@ -35,6 +35,8 @@ EXPORT void pager_plot(DPARMS *params)
 {
    // You gotta have called pager_init() before star
    assert(ti_values_initialized());
+   // Critical but forgettable setting:
+   assert(params->printer);
 
    int left = params->chars_left;
    int line = params->line_top;
@@ -57,7 +59,11 @@ EXPORT void pager_plot(DPARMS *params)
       if (row <= end_row)
       {
          bool has_focus = row == params->index_row_focus;
-         (params->printer)(row, has_focus, chars_count, params->data_source);
+         (params->printer)(row,
+                           has_focus,
+                           chars_count,
+                           params->data_source,
+                           params->data_extra);
       }
       // allow erased line above to handle output to vacant rows (rows without data)
    }
