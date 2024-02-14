@@ -29,7 +29,25 @@ EXPORT void pager_init_dparms(DPARMS *parms,
    parms->index_row_top = 0;
    parms->index_row_focus = 0;
 
-   pager_set_margins(parms, 0, 0, 0, 0);
+   pager_calc_borders(parms);
+}
+
+/**
+ * @brief Calculate and set border values from margin values.
+ * @param "parms" Initialized @ref DPARMS struct that needs updated borders.
+ */
+EXPORT void pager_calc_borders(DPARMS *parms)
+{
+   int rows, cols;
+   ti_get_screen_size(&rows, &cols);
+
+   parms->line_top = parms->margin_top;
+   parms->line_count = rows - parms->margin_top - parms->margin_bottom;
+   parms->line_bottom = parms->margin_top + parms->line_count - 1;
+   parms->chars_left = parms->margin_left;
+   parms->chars_count = cols - parms->margin_left - parms->margin_right;
+
+   ti_set_scroll_limit(parms->margin_top, parms->line_count - 1);
 }
 
 /**
@@ -45,7 +63,7 @@ EXPORT void pager_init_dparms(DPARMS *parms,
  * - only @p top is set, its value applies to all four margins
  * - only @p top and @p right set, @p top applies to @p top and @p bottom,
  *   and @p right applies to @p right and @p left.
- * - only@p top, @p right, and @p bottom set, @p right applies to @p right and @p left.
+ * - only @p top, @p right, and @p bottom set, @p right applies to @p right and @p left.
  */
 EXPORT void pager_set_margins(DPARMS *parms, int top, int right, int bottom, int left)
 {
@@ -62,15 +80,11 @@ EXPORT void pager_set_margins(DPARMS *parms, int top, int right, int bottom, int
    else if (left < 0)
       left = right;
 
-   int rows, cols;
-   ti_get_screen_size(&rows, &cols);
+   parms->margin_top = top;
+   parms->margin_bottom = bottom;
+   parms->margin_left = left;
+   parms->margin_right = right;
 
-   parms->line_top = top;
-   parms->line_count = rows - top - bottom;
-   parms->line_bottom = top + parms->line_count - 1;
-   parms->chars_left = left;
-   parms->chars_count = cols - left - right;
-
-   ti_set_scroll_limit(top, parms->line_count - 1);
+   pager_calc_borders(parms);
 }
 

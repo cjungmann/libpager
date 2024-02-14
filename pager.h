@@ -80,6 +80,7 @@ void pager_init_dparms(DPARMS *parms,
                        void *data_extra);
 
 void pager_set_margins(DPARMS *parms, int top, int right, int bottom, int left);
+void pager_calc_borders(DPARMS *parms);
 
 void pager_init(void);
 void pager_cleanup(void);
