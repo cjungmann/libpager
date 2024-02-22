@@ -47,7 +47,7 @@
 .cdef_arg int row_count
 .cdef_arg pwb_print_line printer
 .cdef_end
-.PP
+.\"
 .cdef_start void pager_set_margins
 .cdef_arg "DPARMS\ *" params
 .cdef_arg int top
@@ -55,26 +55,30 @@
 .cdef_arg int bottom
 .cdef_arg int left
 .cdef_end
-.PP
+.\"
 .cdef_start void pager_calc_borders
 .cdef_arg "DPARMS\ *" params
 .cdef_end
-.PP
+.\"
 .cdef_start void pager_init
 .cdef_arg void ""
 .cdef_end
-'\"
-.PP
+.\"
 .cdef_start void pager_cleanup
 .cdef_arg void ""
 .cdef_end
-
-.SS Pager Manipulation Functions
-
+'\"
+.SS Content-plotting Functions
 .cdef_start void pager_plot
 .cdef_arg "DPARMS\ *" parms
 .cdef_end
 '\"
+.cdef_start void pager_plot_row
+.cdef_arg "DPARMS\ *" parms
+.cdef_end
+
+.SS Pager Manipulation Functions
+
 .cdef_start ARV pager_quit ()
 .cdef_arg "DPARMS\ *" parms
 .cdef_end
