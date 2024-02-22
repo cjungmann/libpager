@@ -85,6 +85,7 @@ void pager_calc_borders(DPARMS *parms);
 void pager_init(void);
 void pager_cleanup(void);
 
+void pager_plot_row(DPARMS *params, int row_index);
 void pager_plot(DPARMS *params);
 
 

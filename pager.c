@@ -30,6 +30,25 @@ EXPORT void pager_cleanup(void)
    }
 }
 
+EXPORT void pager_plot_row(DPARMS *parms, int row_index)
+{
+   // Calculate visible limits
+   int first_screen_row = parms->index_row_top;
+   int last_screen_row = first_screen_row + parms->line_count-1;
+
+   // Reprint requested line if within visible limits
+   if (row_index>=first_screen_row && row_index <= last_screen_row)
+   {
+      int line = parms->line_top + row_index - parms->index_row_top;
+      ti_set_cursor_position(line, parms->chars_left);
+      (parms->printer)(row_index,
+                        row_index == parms->index_row_focus,
+                        parms->chars_count,
+                        parms->data_source,
+                        parms->data_extra);
+   }
+}
+
 
 EXPORT void pager_plot(DPARMS *params)
 {
