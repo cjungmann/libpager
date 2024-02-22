@@ -134,9 +134,9 @@ bool ti_values_initialized(void)
  */
 EXPORT void ti_write_str(const char *str)
 {
-   int len = strlen(str);
-   write(STDOUT_FILENO, str, len);
-   // tputs(str, 1, putchar);
+   int len;
+   if (str && (len=strlen(str)) > 0)
+      write(STDOUT_FILENO, str, len);
 }
 
 /**
@@ -207,6 +207,8 @@ EXPORT void ti_start_term(void)
  */
 EXPORT void ti_cleanup_term(void)
 {
+   assert(ti_values_initialized());
+
    // Unset scroll limits with a fresh accounting of the screen size:
    int row, col;
    ti_get_screen_size(&row, &col);
@@ -291,6 +293,9 @@ EXPORT void ti_get_screen_size(int *rows, int *cols)
  */
 EXPORT void ti_set_scroll_limit(int top, int count)
 {
+   // Check status in this rarely-called function:
+   assert(ti_values_initialized());
+
    const char *str = tiparm(SCROLL_REGION_STR, top, top + count);
    ti_write_str(str);
 }
