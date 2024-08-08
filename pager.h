@@ -127,4 +127,13 @@ ARV pager_scroll_home(DPARMS *parms);
  * @}
  */
 
+/**
+ * @defgroup termstuff utility functions
+ * @{
+ */
+void ti_set_cursor_position(int row, int col);
+void ti_hide_cursor(void);
+void ti_show_cursor(void);
+/** @} */
+
 #endif
