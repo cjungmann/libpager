@@ -14,7 +14,7 @@
 .cdef_arg int length
 .cdef_arg "void\ *" data_source
 .cdef_arg "void\ *" data_extra
-.cdef_end
+.cdef_end_stacked
 \"
 .PP
 .B typedef struct
@@ -26,7 +26,16 @@
 .cdef_arg int row_count
 .cdef_arg pwb_print_line printer
 .cdef_arg "void\ *" data_extra
-.cdef_arg \\*[vellipsis] ""
+.\" .cdef_arg \\*[vellipsis] ""
+.cdef_arg  int margin_top
+.cdef_arg  int margin_right
+.cdef_arg  int margin_bottom
+.cdef_arg  int margin_left
+.cdef_arg int line_top
+.cdef_arg int line_bottom
+.cdef_arg int line_count
+.cdef_arg int chars_left
+.cdef_arg int chars_count
 .cdef_end_stacked DPARMS
 .PP
 .cdef_start "typedef enum" ""  {} ,
