@@ -73,6 +73,10 @@ EXPORT ARV pager_activate(DPARMS *parms)
 
 EXPORT ARV pager_focus_up_one(DPARMS *parms)
 {
+   // Skip if no rows to which to move
+   if (parms->row_count == 0)
+      return ARV_CONTINUE;
+
    // We shouldn't have to check if the focus should be on a valid row:
    assert(parms->index_row_focus < parms->row_count);
 
@@ -95,6 +99,10 @@ EXPORT ARV pager_focus_up_one(DPARMS *parms)
 
 EXPORT ARV pager_focus_down_one(DPARMS *parms)
 {
+   // Skip if no rows to which to move
+   if (parms->row_count == 0)
+      return ARV_CONTINUE;
+
    // We shouldn't have to check if the focus should be on a valid row:
    assert(parms->index_row_focus >= 0);
 
@@ -125,6 +133,10 @@ EXPORT ARV pager_focus_down_one(DPARMS *parms)
 
 EXPORT ARV pager_focus_down_page(DPARMS *parms)
 {
+   // Skip if no rows to which to move
+   if (parms->row_count == 0)
+      return ARV_CONTINUE;
+
    // int index_bottom_line = get_index_bottom_line(parms);
    // int at_line = get_line_index_from_row_index(parms, index_bottom_line);
 
@@ -158,6 +170,10 @@ EXPORT ARV pager_focus_down_page(DPARMS *parms)
 
 EXPORT ARV pager_focus_up_page(DPARMS *parms)
 {
+   // Skip if no rows to which to move
+   if (parms->row_count == 0)
+      return ARV_CONTINUE;
+
    // If focus already on top line, we'll pan or abort
    if (parms->index_row_focus == parms->index_row_top)
    {
@@ -186,6 +202,10 @@ EXPORT ARV pager_focus_up_page(DPARMS *parms)
 
 EXPORT ARV pager_focus_end(DPARMS *parms)
 {
+   // Skip if no rows to which to move
+   if (parms->row_count == 0)
+      return ARV_CONTINUE;
+
    int index_last_row = parms->row_count - 1;
    if (row_index_is_visible(parms, index_last_row))
    {
@@ -206,6 +226,10 @@ EXPORT ARV pager_focus_end(DPARMS *parms)
 
 EXPORT ARV pager_focus_home(DPARMS *parms)
 {
+   // Skip if no rows to which to move
+   if (parms->row_count == 0)
+      return ARV_CONTINUE;
+
    if (row_index_is_visible(parms, 0))
    {
       print_indexed_row(parms, parms->index_row_focus, 0);
@@ -222,31 +246,55 @@ EXPORT ARV pager_focus_home(DPARMS *parms)
 
 EXPORT ARV pager_scroll_down_one(DPARMS *parms)
 {
+   // Skip if no rows to which to move
+   if (parms->row_count == 0)
+      return ARV_CONTINUE;
+
    return ARV_CONTINUE;
 }
 
 EXPORT ARV pager_scroll_up_one(DPARMS *parms)
 {
+   // Skip if no rows to which to move
+   if (parms->row_count == 0)
+      return ARV_CONTINUE;
+
    return ARV_CONTINUE;
 }
 
 EXPORT ARV pager_scroll_down_page(DPARMS *parms)
 {
+   // Skip if no rows to which to move
+   if (parms->row_count == 0)
+      return ARV_CONTINUE;
+
    return ARV_CONTINUE;
 }
 
 EXPORT ARV pager_scroll_up_page(DPARMS *parms)
 {
+   // Skip if no rows to which to move
+   if (parms->row_count == 0)
+      return ARV_CONTINUE;
+
    return ARV_CONTINUE;
 }
 
 EXPORT ARV pager_scroll_end(DPARMS *parms)
 {
+   // Skip if no rows to which to move
+   if (parms->row_count == 0)
+      return ARV_CONTINUE;
+
    return ARV_CONTINUE;
 }
 
 EXPORT ARV pager_scroll_home(DPARMS *parms)
 {
+   // Skip if no rows to which to move
+   if (parms->row_count == 0)
+      return ARV_CONTINUE;
+
    return ARV_CONTINUE;
 }
 
