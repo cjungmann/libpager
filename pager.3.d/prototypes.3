@@ -1,0 +1,140 @@
+.de pt_pwb_print_line
+.   cdef_start "typedef\ int" (*pwb_print_line)
+.   cdef_arg int row_index
+.   cdef_arg int indicated
+.   cdef_arg int length
+.   cdef_arg "void\ *" data_source
+.   cdef_arg "void\ *" data_extra
+.   cdef_end_stacked
+..
+.de pt_pwb_dparms
+.   B typedef struct
+.   br
+.   cdef_start "" "display_parameters"  {} ;
+.   cdef_arg int index_row_top
+.   cdef_arg int index_row_focus
+.   cdef_arg "void\ *" data_source
+.   cdef_arg int row_count
+.   cdef_arg pwb_print_line printer
+.   cdef_arg "void\ *" data_extra
+.   \" .cdef_arg \\*[vellipsis] ""
+.   cdef_arg  int margin_top
+.   cdef_arg  int margin_right
+.   cdef_arg  int margin_bottom
+.   cdef_arg  int margin_left
+.   cdef_arg int line_top
+.   cdef_arg int line_bottom
+.   cdef_arg int line_count
+.   cdef_arg int chars_left
+.   cdef_arg int chars_count
+.   cdef_end_stacked DPARMS
+..
+.de pt_arv
+.   cdef_start "typedef enum" ""  {} ,
+.   cdef_arg ARV_CONTINUE =\ 0
+.   cdef_arg ARV_REPLOT_DATA ""
+.   cdef_arg ARV_EXIT ""
+.   cdef_end_stacked ARV
+..
+.de pt_paction
+.   PP
+.   cdef_start "typedef\ ARV" (*PACTION)
+.   cdef_arg DPARMS* parms
+.   cdef_end
+..
+.de pt_pager_init_dparms
+.   cdef_start void pager_init_dparms () ,
+.   cdef_arg "DPARMS\ *" dparms
+.   cdef_arg "void\ *" data_source
+.   cdef_arg int row_count
+.   cdef_arg pwb_print_line printer
+.   cdef_end
+..
+.de pt_pager_set_margins
+.   cdef_start void pager_set_margins
+.   cdef_arg "DPARMS\ *" params
+.   cdef_arg int top
+.   cdef_arg int right
+.   cdef_arg int bottom
+.   cdef_arg int left
+.   cdef_end
+..
+.de pt_pager_calc_borders
+.   cdef_start void pager_calc_borders
+.   cdef_arg "DPARMS\ *" params
+.   cdef_end
+..
+.de pt_pager_init
+.   cdef_start void pager_init
+.   cdef_arg void ""
+.   cdef_end
+..
+.de pt_pager_cleanup
+.   cdef_start void pager_cleanup
+.   cdef_arg void ""
+.   cdef_end
+..
+.de pt_pager_plot
+.   cdef_start void pager_plot
+.   cdef_arg "DPARMS\ *" parms
+.   cdef_end
+..
+.de pt_pager_plot_row
+.   cdef_start void pager_plot_row
+.   cdef_arg "DPARMS\ *" parms
+.   cdef_end
+..
+.de pt_pager_quit
+.   cdef_start ARV pager_quit ()
+.   cdef_arg "DPARMS\ *" parms
+.   cdef_end
+..
+.de pt_pager_activate
+.   cdef_start ARV pager_activate ()
+.   cdef_arg "DPARMS\ *" parms
+.   cdef_end
+..
+.de pt_pager_focus_up_one
+.   cdef_start ARV pager_focus_up_one ()
+.   cdef_arg "DPARMS\ *" parms
+.   cdef_end
+..
+.de pt_pager_focus_down_one
+.   cdef_start ARV pager_focus_down_one ()
+.   cdef_arg "DPARMS\ *" parms
+.   cdef_end
+..
+.de pt_pager_focus_up_page
+.   cdef_start ARV pager_focus_up_page ()
+.   cdef_arg "DPARMS\ *" parms
+.   cdef_end
+..
+.de pt_pager_focus_down_page
+.   cdef_start ARV pager_focus_down_page ()
+.   cdef_arg "DPARMS\ *" parms
+.   cdef_end
+..
+.de pt_pager_focus_end
+.   cdef_start ARV pager_focus_end ()
+.   cdef_arg "DPARMS\ *" parms
+.   cdef_end
+..
+.de pt_pager_focus_home
+.   cdef_start ARV pager_focus_home ()
+.   cdef_arg "DPARMS\ *" parms
+.   cdef_end
+..
+.de pt_ti_set_cursor_position
+.   cdef_start void ti_set_cursor_position
+.   cdef_arg int row
+.   cdef_arg int col
+.   cdef_end
+..
+
+.de pt_ti_hide_cursor
+.   cdef_voidfunc ti_hide_cursor
+..
+
+.de pt_ti_show_cursor
+.   cdef_voidfunc ti_show_cursor
+..

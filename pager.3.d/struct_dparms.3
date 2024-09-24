@@ -1,0 +1,67 @@
+.if !dMAINPAGE \{\
+.TH "BOGUS DEBUG HEADER" 3
+.so prototypes.3
+.mso gproto.tmac
+.\}
+.SS DPARMS (STRUCT DISPLAY_PARAMETERS)
+.pt_pwb_dparms
+.PP
+This important data structure preserves information about the data
+source and various display dimensions.
+.PP
+Member names that include the substring
+.B rows
+refer to elements of the data source while
+.B lines
+refer to positions on the output screen.
+.SS Data Status Members
+.TP
+.I index_top_row
+Row number of data source that is to be displayed as the top line
+in the main display area
+.TP
+.I index_row_focus
+The data source row number that is the target of any actions.
+The
+.B printer
+function should make it obvious that this line differs from other
+displayed lines.
+.TP
+.I data_source
+is a pointer to to whatever will serve as a source of data.
+This pointer will be passed to the printer function along with the
+row number when a line must be printed.
+.TP
+.I row_count
+is the number of data rows in the data source.
+.TP
+.I printer
+is the address of a callback function to be called when the pager
+needs to print a line.
+See function prototype
+.BR pwb_print_line .
+.TP
+.I data_extra
+is an optional pointer to custom application-specific data.
+.SS Printing Guide Members
+.TP
+.IR margin_top ", " margin_right ", " margin_bottom ", and " margin_left
+are members that contain the space left on the edges of the screen.
+.IP
+See function
+.B pager_set_margins
+for an explanation of how these members are set.
+.TP
+.IR line_top " and " line_bottom
+refer to the screen line numbers of the top and bottom of the
+pager-controlled display area.
+.TP
+.I chars_left
+refers to the number of spaces to skip at the beginning of each line.
+.TP
+.I chars_count
+is the number of characters allowed to be output by the
+.B printer
+callback function.
+
+

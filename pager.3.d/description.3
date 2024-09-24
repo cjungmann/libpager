@@ -1,0 +1,40 @@
+.if !dMAINPAGE \{\
+.TH "BOGUS DEBUG HEADER" 3
+.so prototypes.3
+.mso gproto.tmac
+.\}
+.SH DESCRIPTION
+The
+.B pager
+library is a flexible tool for presenting and allowing interaction
+with the contents of a data source.
+.PP
+Although data-source agnostic, this library was designed with the
+Bash builtin data library
+.B ate
+in mind.
+In fact, the data source can be anything from which data elements
+can be retrieved through an integer value.
+When running, the
+.B pager
+library simply returns the pointer to the data source along with
+the specific row index requested for the current action, be it to
+be printed or to be referenced by an execution callback.
+.SS LIMITED DOCUMENTATION
+.PP
+This library was designed to be a component of the Bash builtin
+library
+.B pwb
+(pager with benefits).
+As a sub-component, this library is initially not expected to be
+widely consulted, so the incomplete documentation provided here is
+serves as a design reminder for development of the
+.B pwb
+builtin.
+.PP
+As a result of the tight coupling between this library and the
+.B pwb
+library, the
+.B pwb
+project can serve as a somewhat inconvenient usage guide for this
+library
