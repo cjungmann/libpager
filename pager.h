@@ -79,7 +79,7 @@ void pager_init_dparms(DPARMS *parms,
                        pwb_print_line printer,
                        void *data_extra);
 
-void pager_set_margins(DPARMS *parms, int top, int right, int bottom, int left);
+bool pager_set_margins(DPARMS *parms, int top, int right, int bottom, int left);
 void pager_calc_borders(DPARMS *parms);
 
 void pager_init(void);

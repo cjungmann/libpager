@@ -57,6 +57,7 @@ EXPORT void pager_calc_borders(DPARMS *parms)
  * @param "right"    right margin in characters
  * @param "bottom"   bottom margin in lines
  * @param "left"     left margin in lines
+ * @return true if done, false if over- or under-flow (changes not made)
  *
  * Set a negative value to use a calculated margin value.
  * Following the CSS margins convention:
@@ -65,7 +66,7 @@ EXPORT void pager_calc_borders(DPARMS *parms)
  *   and @p right applies to @p right and @p left.
  * - only @p top, @p right, and @p bottom set, @p right applies to @p right and @p left.
  */
-EXPORT void pager_set_margins(DPARMS *parms, int top, int right, int bottom, int left)
+EXPORT bool pager_set_margins(DPARMS *parms, int top, int right, int bottom, int left)
 {
    // Adjust to missing values
    if (top < 0)
@@ -80,11 +81,20 @@ EXPORT void pager_set_margins(DPARMS *parms, int top, int right, int bottom, int
    else if (left < 0)
       left = right;
 
-   parms->margin_top = top;
-   parms->margin_bottom = bottom;
-   parms->margin_left = left;
-   parms->margin_right = right;
+   int rows, cols;
+   ti_get_screen_size(&rows, &cols);
 
-   pager_calc_borders(parms);
+   if ( (top + bottom <= rows) && (left + right <= cols) )
+   {
+      parms->margin_top = top;
+      parms->margin_bottom = bottom;
+      parms->margin_left = left;
+      parms->margin_right = right;
+
+      pager_calc_borders(parms);
+      return true;
+   }
+
+   return false;
 }
 
