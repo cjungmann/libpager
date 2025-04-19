@@ -108,6 +108,8 @@ ARV pager_activate(DPARMS *parms);
 
 ARV pager_replot(DPARMS *parms);
 
+ARV pager_set_focus(DPARMS *parms, int requested_focus, int requested_top);
+
 ARV pager_focus_up_one(DPARMS *parms);
 ARV pager_focus_down_one(DPARMS *parms);
 ARV pager_focus_down_page(DPARMS *parms);

@@ -71,6 +71,54 @@ EXPORT ARV pager_activate(DPARMS *parms)
    return ARV_REPLOT_DATA;
 }
 
+EXPORT ARV pager_set_focus(DPARMS *parms, int requested_focus, int requested_top)
+{
+   // Skip if no rows to which to move
+   if (parms->row_count == 0)
+      return ARV_CONTINUE;
+
+   // Sanity check: only proceed if request in range
+   if (requested_focus > 0 &&  requested_focus < parms->row_count )
+   {
+      int top_row = requested_top>=0 ? requested_top : parms->index_row_top;
+      int limit_visible = top_row + parms->line_count;
+
+      // If requested row visible, just highlight it:
+      if (requested_focus >= top_row && requested_focus < limit_visible)
+      {
+         // Unhighlight current focus, required for most possibilities
+         print_indexed_row(parms, parms->index_row_focus, 0);
+         parms->index_row_focus = requested_focus;
+         print_indexed_row(parms, parms->index_row_focus, 1);
+      }
+      else
+      {
+         // Adjust top row if necessary to include focus row
+         if ( requested_focus < top_row )
+            top_row = requested_focus;
+         else if (requested_focus >= top_row + parms->index_row_top )
+            top_row = requested_focus - parms->index_row_top;
+
+         limit_visible = top_row + parms->line_count;
+
+         if ( requested_focus < top_row )
+            top_row = requested_focus;
+         else if ( requested_focus >= limit_visible )
+            top_row = requested_focus;
+
+         // Taking easy route: no consideration for possible
+         // scrolling, just reprint from new top row
+
+         parms->index_row_top = top_row;
+         parms->index_row_focus = requested_focus;
+
+         pager_replot(parms);
+      }
+   }
+
+   return ARV_CONTINUE;
+}
+
 EXPORT ARV pager_focus_up_one(DPARMS *parms)
 {
    // Skip if no rows to which to move
