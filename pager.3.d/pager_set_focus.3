@@ -1,0 +1,50 @@
+.so fork.tmac
+.PP
+.pt_pager_set_focus
+.RS 7
+.TP
+.BI "dparms * " parms
+An initialized
+.B dparms
+structure of a running
+.B pager
+instance.
+.TP
+.BI "int " requested_focus
+Data source index of data line that should be in focus.
+The value will be ignored if out-of-range, ie less than 0 or
+not less than
+.BR DPARMS :: row_count .
+Use a value of
+.I -1
+to leave focus alone.
+.TP
+.BI "int " requested_top
+Data source index of data line that should be the top row.
+The value will be ignored if out-of-range, ie less than 0 or
+not less than
+.BR DPARMS :: row_count ,
+or if the
+.B requested_focus
+cannot be accommodated by the request.
+Use a value of
+.I -1
+to leave focus alone.
+.IP
+Typically, this argument will only be used to restore a previous
+screen after using
+.B requested_focus
+to move.
+.RE
+.IP
+This function allows a program to arbitrarily set a display position,
+in a running instance, without going through user functions.  It was
+designed for moving the position in response to a search.
+.IP
+The primary consideration is
+.BR requested_focus .
+The focus will be moved within an existing view if the requested
+data line is alread in view.  Otherwise,
+.BR DPARMS :: index_row_top
+will be adjusted to an appropriate position that allows the focus
+line to be visible.
