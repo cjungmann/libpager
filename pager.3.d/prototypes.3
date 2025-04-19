@@ -94,9 +94,11 @@
 .   cdef_arg "DPARMS\ *" parms
 .   cdef_end
 ..
-.de pt_pager_focus_up_one
-.   cdef_start ARV pager_focus_up_one ()
+.de pt_pager_set_focus
+.   cdef_start ARV pager_set_focus ()
 .   cdef_arg "DPARMS\ *" parms
+.   cdef_arg int requested_focus
+.   cdef_arg int requested_top
 .   cdef_end
 ..
 .de pt_pager_focus_down_one

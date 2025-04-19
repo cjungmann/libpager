@@ -1,8 +1,4 @@
-.if !dMAINPAGE \{\
-.TH "BOGUS DEBUG HEADER" 3
-.so prototypes.3
-.mso gproto.tmac
-.\}
+.so fork.tmac
 .SH SYNOPSIS
 .ds vellipsis \[u22EE]
 .PP
@@ -29,6 +25,7 @@
 .SS Pager Manipulation Functions
 .pt_pager_quit
 .pt_pager_activate
+.pt_pager_set_focus
 .pt_pager_focus_up_one
 .pt_pager_focus_down_one
 .pt_pager_focus_up_page
