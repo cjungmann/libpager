@@ -77,44 +77,45 @@ EXPORT ARV pager_set_focus(DPARMS *parms, int requested_focus, int requested_top
    if (parms->row_count == 0)
       return ARV_CONTINUE;
 
-   // Sanity check: only proceed if request in range
-   if (requested_focus > 0 &&  requested_focus < parms->row_count )
+   // Early exit for out-of-range arguments
+   if (requested_focus >= parms->row_count || requested_top >= parms->row_count)
+      return ARV_CONTINUE;
+   // Early exit for nothing to do
+   if (requested_focus<0 && requested_top<0)
+      return ARV_CONTINUE;
+
+   int top_row = parms->index_row_top;
+   int rows_visible = parms->line_count;
+   int limit_row = top_row + rows_visible;
+
+   bool request_in_view = requested_focus >= top_row && requested_focus < limit_row;
+
+   // If visible with current view without changing the top row
+   if (requested_top < 0 && request_in_view)
    {
-      int top_row = requested_top>=0 ? requested_top : parms->index_row_top;
-      int limit_visible = top_row + parms->line_count;
-
-      // If requested row visible, just highlight it:
-      if (requested_focus >= top_row && requested_focus < limit_visible)
-      {
-         // Unhighlight current focus, required for most possibilities
-         print_indexed_row(parms, parms->index_row_focus, 0);
-         parms->index_row_focus = requested_focus;
-         print_indexed_row(parms, parms->index_row_focus, 1);
-      }
-      else
-      {
-         // Adjust top row if necessary to include focus row
-         if ( requested_focus < top_row )
-            top_row = requested_focus;
-         else if (requested_focus >= top_row + parms->index_row_top )
-            top_row = requested_focus - parms->index_row_top;
-
-         limit_visible = top_row + parms->line_count;
-
-         if ( requested_focus < top_row )
-            top_row = requested_focus;
-         else if ( requested_focus >= limit_visible )
-            top_row = requested_focus;
-
-         // Taking easy route: no consideration for possible
-         // scrolling, just reprint from new top row
-
-         parms->index_row_top = top_row;
-         parms->index_row_focus = requested_focus;
-
-         pager_replot(parms);
-      }
+      print_indexed_row(parms, parms->index_row_focus, 0);
+      parms->index_row_focus = requested_focus;
+      print_indexed_row(parms, parms->index_row_focus, 1);
+      return ARV_CONTINUE;
    }
+
+   // If we get here, we'll have to move the top line, either because
+   // it's requested or because the requested_focus is not visible:
+
+   // Start with requested top row (if provided)
+   if (requested_top >= 0)
+      top_row = requested_top;
+
+   // If view with top_row can't contain requested_focus, change top_row
+   if (requested_focus < top_row)
+      top_row = requested_focus;
+   else if (requested_focus >= limit_row)
+      top_row = requested_focus - parms->line_count + 1;
+
+   parms->index_row_top = top_row;
+   parms->index_row_focus = requested_focus;
+
+   pager_plot(parms);
 
    return ARV_CONTINUE;
 }
